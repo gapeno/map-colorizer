@@ -15,6 +15,8 @@ def get_mapped_color(args, val_min, val_max, val):
 
 
 def get_random_color(args):
+    val_min = 0
+    val_max = 101
     return get_mapped_color(args, val_min, val_max, randrange(val_min, val_max))
 
 
@@ -34,9 +36,10 @@ def draw_map(args):
     ax.background_patch.set_visible(False)
     ax.outline_patch.set_visible(not(args.hide_outline))
 
-    values = args.data.values()
-    min_val = min(values)
-    max_val = max(values)
+    if not args.random_colors:
+        values = args.data.values()
+        min_val = min(values)
+        max_val = max(values)
 
     for record, state in zip(shp.records(), shp.geometries()):
         name = record.attributes['name']
@@ -64,8 +67,14 @@ def define_args():
 
 def start():
     args = define_args()
-    with open(args.file) as f:
-        args.data = json.load(f)
+    if args.file:
+        with open(args.file) as f:
+            args.data = json.load(f)
+    else:
+        args.data = ['Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo',
+                     'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba',
+                     'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul',
+                     'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins']
     draw_map(args)
 
 
