@@ -9,3 +9,5 @@ optional arguments:
   -c CMAP, --cmap CMAP  PyPlot Color map name. Check color maps in
                         https://tinyurl.com/td7vpdx.
   --hide-outline        Hide the map outline.
+
+NOTE: It currently only works with Brazillian map.
